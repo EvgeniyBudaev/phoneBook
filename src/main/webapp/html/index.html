@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Телефонный справочник</title>
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5>Прототип телефонного справочника</h5>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="user-list-div">
+                <div class="display-flex mobile-div">
+
+                    <div class="button">
+                        <form method="get" action="student_progress.html">
+                            <input class="black-button big-button" type="submit" value="Список пользователей с телефонами" onclick="viewStudentPrograss()">
+                        </form>
+                    </div>
+
+                    <div class="button">
+                        <form method="get" action="student_creating.html">
+                            <input type="submit" class="black-button small-button" value="Добавить запись">
+                        </form>
+                    </div>
+
+                    <div class="button">
+                        <div><input type="submit" class="black-button small-button" value="Удалить запись" onclick="deleteStudents()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table>
+
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Номер телефона</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Gitsome</td>
+                    <td>Some one</td>
+                    <td>Take mose</td>
+                    <td>84957893475</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Linkage</td>
+                    <td>Fordor</td>
+                    <td>Miad ron me</td>
+                    <td>8999114536</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Hicura</td>
+                    <td>Warecom</td>
+                    <td>Xamicon</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>Lavistaro</td>
+                    <td>Micanorta</td>
+                    <td>Ebloconte ma</td>
+                    <td>89250683942</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
