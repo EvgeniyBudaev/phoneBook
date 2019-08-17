@@ -1,15 +1,13 @@
 package database;
 
-import entity.Phone;
 import entity.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
+
 
 public class DBManager {
 
@@ -18,12 +16,13 @@ public class DBManager {
         ArrayList<User> allUsers = new ArrayList<>();
 
         try{
-            String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://phonebookserver.ctkdt25s6qvp.us-east-2.rds.amazonaws.com/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            //String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Class.forName("com.mysql.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     url,"root","Prodaza58");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM phonebook.users where status = '1' ");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM phonebook.users where status = '1' ORDER BY surname");
             while (rs.next()){
                 User user = new User();
                 user.setId(rs.getInt("id"));
@@ -46,7 +45,8 @@ public class DBManager {
         LinkedHashMap<User, String> userAndPhone = new LinkedHashMap<>();
 
         try{
-            String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://phonebookserver.ctkdt25s6qvp.us-east-2.rds.amazonaws.com/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            //String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Class.forName("com.mysql.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     url,"root","Prodaza58");
@@ -74,17 +74,26 @@ public class DBManager {
     public static void createRecord(String surname, String name, String patronymic, String phoneNumber){
 
         try{
-            String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://phonebookserver.ctkdt25s6qvp.us-east-2.rds.amazonaws.com/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+           // String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Class.forName("com.mysql.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     url,"root","Prodaza58");
             Statement stmt = con.createStatement();
             if(phoneNumber.equals("")){
-                stmt.execute("INSERT INTO `phonebook`.`users` (`surname`, `name`, `patronymic`) VALUES ('" + surname + "', '" + name + "', '" + patronymic + " ')");
-            }else{
-                stmt.execute("INSERT INTO `phonebook`.`users` (`surname`, `name`, `patronymic`) VALUES ('" + surname + "', '" + name + "', '" + patronymic + " ')");
-                stmt.executeQuery("SELECT id FROM users WHERE surname='" + surname + "'");
-                stmt.execute("INSERT INTO phones(user_id, phoneNumber) VALUES ((SELECT id FROM users WHERE surname='" + surname + "'), '" + phoneNumber + "') ;");
+                stmt.execute("INSERT INTO `phonebook`.`users` (`surname`, `name`, `patronymic`) VALUES ('"+surname+"', '"+name+"','"+patronymic+"')");
+            }
+
+            if(surname.equals(stmt.executeQuery("SELECT * FROM users WHERE surname='"+surname+"' ORDER BY ID DESC limit 1"))){
+                    stmt.execute("INSERT INTO `phonebook`.`users` (`surname`, `name`, `patronymic`) VALUES ('"+surname+"','"+name+"','"+patronymic+"')");
+                    stmt.executeQuery("SELECT id FROM users WHERE surname='"+surname+"'");
+                    stmt.execute("INSERT INTO phones(user_id, phoneNumber) VALUES ((SELECT id FROM users WHERE surname='"+surname+"'), '"+phoneNumber+"') ");
+            }
+
+               else {
+                stmt.execute("INSERT INTO `phonebook`.`users` (`surname`, `name`, `patronymic`) VALUES ('"+surname+"','"+name+"','"+patronymic+"')");
+                stmt.executeQuery("SELECT id FROM users WHERE surname='"+surname+"'");
+                stmt.execute("INSERT INTO phones(user_id, phoneNumber) VALUES ((SELECT id FROM users WHERE surname='"+surname+"' ORDER BY ID DESC limit 1), '"+phoneNumber+"') ");
 
             }
 
@@ -96,7 +105,8 @@ public class DBManager {
     //Удаление записи
     public static void deleteUser(String id) {
         try{
-            String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://phonebookserver.ctkdt25s6qvp.us-east-2.rds.amazonaws.com/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            //String url = "jdbc:mysql://localhost:3306/phonebook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Class.forName("com.mysql.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     url,"root","Prodaza58");

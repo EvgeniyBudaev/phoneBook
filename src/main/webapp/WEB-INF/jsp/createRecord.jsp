@@ -33,6 +33,15 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="a-na-glavnuu" href="/index.jsp">На главную</a>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="container">
     <div class="row">

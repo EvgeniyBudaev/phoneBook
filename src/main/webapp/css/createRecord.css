@@ -1,5 +1,7 @@
 body {
     margin: 20px;
+    background: url(../img/header.jpg) no-repeat center center fixed;
+    background-size: cover;
 }
 
 /*********************************
@@ -8,6 +10,7 @@ body {
 
 h5 {    
     text-align: center;
+    font-weight: 700;
 }
 
 /*********************************
